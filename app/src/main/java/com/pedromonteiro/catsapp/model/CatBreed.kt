@@ -1,11 +1,16 @@
 package com.pedromonteiro.catsapp.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+// TODO If I have time, leave this class as an entity in data package, and create model classes
+//  for each kind of screen that they are needed
+@Entity(tableName = "catBreed")
 data class CatBreed(
-    @SerializedName("id") val id: String,
+    @SerializedName("id") @PrimaryKey val id: String,
     @SerializedName("name") val name: String,
-    @SerializedName("reference_image_id") val referenceImageId: String,
+    @SerializedName("reference_image_id") val referenceImageId: String?,
     @SerializedName("life_span") val lifeSpan: String,
     @SerializedName("origin") val origin: String,
     @SerializedName("temperament") val temperament: String,

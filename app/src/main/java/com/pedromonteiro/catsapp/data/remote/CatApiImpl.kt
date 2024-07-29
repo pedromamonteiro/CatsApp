@@ -1,5 +1,6 @@
-package com.pedromonteiro.catsapp.data
+package com.pedromonteiro.catsapp.data.remote
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

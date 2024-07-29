@@ -1,4 +1,4 @@
-package com.pedromonteiro.catsapp.data
+package com.pedromonteiro.catsapp.data.remote
 
 import com.pedromonteiro.catsapp.model.CatBreed
 import retrofit2.http.GET
