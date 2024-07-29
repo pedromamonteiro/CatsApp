@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CatsApp</string>
+    <string name="add_favorite_cd">Add to favorites</string>
+    <string name="remove_favorite_cd">Remove from favorites</string>
+    <string name="navigate_to_home_cd">Go to Home Screen</string>
+    <string name="navigate_to_favorites_cd">Go to Favorites Screen</string>
+    <string name="already_at_home_cd">Already at Home Screen</string>
+    <string name="already_at_favorites_cd">Already at Favorites Screen</string>
+    <string name="search_by_breed_ph">Search by breed</string>
 </resources>
