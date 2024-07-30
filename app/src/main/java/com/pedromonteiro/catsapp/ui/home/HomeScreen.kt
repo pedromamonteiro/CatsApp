@@ -28,7 +28,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), onCatClick: (CatBreed
 
     HomeScreen(
         homeScreenState = homeScreenState,
-        onSearchChanged = { TODO("Make viewmodel do the search and update catBreeds") },
+        onSearchChanged = viewModel::onSearchChanged,
         onClick = onCatClick,
         onFavoriteClick = viewModel::onFavoriteClick
     )

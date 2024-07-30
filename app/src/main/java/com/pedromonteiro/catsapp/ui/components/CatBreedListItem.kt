@@ -54,12 +54,11 @@ fun CatBreedListItem(
 
 @Composable
 private fun BoxScope.CatImage(catBreed: CatBreed) {
-    val image = catBreed.referenceImageId?.let {
-        rememberAsyncImagePainter(model = catBreed.getImageUrl())
-    } ?: painterResource(id = R.drawable.ic_no_image)
-
     Image(
-        painter = image,
+        painter = rememberAsyncImagePainter(
+            model = catBreed.getImageUrl(),
+            error = painterResource(id = R.drawable.ic_no_image)
+        ),
         contentDescription = catBreed.name,
         modifier = Modifier
             .height(100.dp)

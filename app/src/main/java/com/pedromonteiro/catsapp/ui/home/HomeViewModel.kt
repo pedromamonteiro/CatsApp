@@ -17,6 +17,7 @@ class HomeViewModel @Inject constructor(
     private val updateFavoriteBreed: UpdateFavoriteBreed,
 ) : ViewModel() {
     private val _homeScreenState = MutableStateFlow(HomeScreenState())
+    private var allBreeds: List<CatBreed> = emptyList()
     val homeScreenState = _homeScreenState.asStateFlow()
 
     init {
@@ -29,11 +30,28 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun onSearchChanged(searchString: String) {
+        _homeScreenState.value = _homeScreenState.value.copy(searchString = searchString)
+        performFilter()
+    }
+
     private fun subscribeToBreeds() {
         viewModelScope.launch {
             getBreeds().collect { catBreeds ->
-                _homeScreenState.value = _homeScreenState.value.copy(catBreeds = catBreeds)
+                allBreeds = catBreeds
+                performFilter()
             }
         }
+    }
+
+    private fun performFilter() {
+        val searchString = _homeScreenState.value.searchString
+        val filteredBreeds = if (searchString.isEmpty()) {
+            allBreeds
+        } else {
+            allBreeds.filter { it.name.contains(searchString, ignoreCase = true) }
+        }
+
+        _homeScreenState.value = _homeScreenState.value.copy(searchString = searchString, catBreeds = filteredBreeds)
     }
 }
