@@ -20,4 +20,7 @@ interface CatBreedDao {
 
     @Query("UPDATE catBreed SET isFavorite = NOT isFavorite WHERE id = :catBreedId")
     suspend fun updateFavoriteCatBreed(catBreedId: String)
+
+    @Query("SELECT * FROM catBreed WHERE id = :catBreedId")
+    fun getCatBreedById(catBreedId: String): Flow<CatBreed>
 }

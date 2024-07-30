@@ -8,13 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.StarOutline
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +37,11 @@ fun CatBreedListItem(
     ) {
         Box {
             CatImage(catBreed = catBreed)
-            FavoriteButton(catBreed = catBreed, onClick = onFavoriteClick)
+            FavoriteCatBreedButton(
+                catBreed = catBreed,
+                modifier = Modifier.align(Alignment.TopEnd),
+                onClick = onFavoriteClick
+            )
         }
         CatBreedText(breedName = catBreed.name)
         if (showLifespan) {
@@ -69,29 +67,6 @@ private fun BoxScope.CatImage(catBreed: CatBreed) {
 }
 
 @Composable
-private fun BoxScope.FavoriteButton(catBreed: CatBreed, onClick: (CatBreed) -> Unit) {
-    IconButton(
-        onClick = { onClick(catBreed) },
-        modifier = Modifier
-            .size(40.dp)
-            .align(Alignment.TopEnd)
-            .padding(4.dp)
-    ) {
-        Icon(
-            imageVector = if (catBreed.isFavorite)
-                Icons.Filled.Star
-            else
-                Icons.Outlined.StarOutline,
-            contentDescription = if (catBreed.isFavorite)
-                stringResource(R.string.remove_favorite_cd)
-            else
-                stringResource(R.string.add_favorite_cd),
-            tint = MaterialTheme.colorScheme.primaryContainer
-        )
-    }
-}
-
-@Composable
 private fun CatBreedText(breedName: String) {
     Text(
         text = breedName,
@@ -107,7 +82,7 @@ private fun CatBreedText(breedName: String) {
 private fun CatLifespanText(catBreed: CatBreed) {
     Text(
         text = stringResource(
-            id = R.string.cat_lifespan_description,
+            id = R.string.cat_lifespan_desc,
             catBreed.getAverageLifespan().toString()
         ),
         textAlign = TextAlign.Center,

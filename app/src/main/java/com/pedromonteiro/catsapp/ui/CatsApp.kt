@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.pedromonteiro.catsapp.model.Routes
 import com.pedromonteiro.catsapp.ui.components.BottomNavigation
+import com.pedromonteiro.catsapp.ui.components.TopBar
 import com.pedromonteiro.catsapp.ui.theme.CatsAppTheme
 
 @Composable
@@ -24,14 +25,21 @@ fun CatsApp() {
         currentRoute = when (destination.route) {
             Routes.Home.route -> Routes.Home
             Routes.Favorites.route -> Routes.Favorites
-            else -> throw IllegalArgumentException("Unknown destination")
+            else -> Routes.Details
         }
     }
 
     CatsAppTheme {
         Scaffold(
-            //TODO("Create top app bar")
-            topBar = { },
+            topBar = {
+                val catBreedId =
+                    navController.currentBackStackEntry?.arguments?.getString("catBreedId")
+                TopBar(
+                    currentRoute = currentRoute,
+                    onBackClick = { navController.navigateUp() },
+                    catBreedId = catBreedId
+                )
+            },
             content = { contentPadding ->
                 Surface(modifier = Modifier.padding(contentPadding)) {
                     RoutesNavGraph(navController = navController)

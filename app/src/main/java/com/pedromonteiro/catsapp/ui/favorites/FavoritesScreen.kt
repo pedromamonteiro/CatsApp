@@ -76,12 +76,12 @@ private fun RemoveFavoriteDialog(onCancel: () -> Unit, onConfirm: () -> Unit) {
         onDismissRequest = onCancel,
         dismissButton = {
             TextButton(onClick = { onCancel() }) {
-                Text(text = stringResource(id = R.string.popup_dismiss_bt))
+                Text(text = stringResource(id = R.string.popup_dismiss_desc))
             }
         },
         confirmButton = {
             TextButton(onClick = { onConfirm() }) {
-                Text(text = stringResource(id = R.string.popup_confirm_bt))
+                Text(text = stringResource(id = R.string.popup_confirm_desc))
             }
         }
     )

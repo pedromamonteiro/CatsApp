@@ -7,7 +7,6 @@ import com.pedromonteiro.catsapp.model.CatBreed
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -55,6 +54,12 @@ class CatRepositoryImpl @Inject constructor(
      */
     override suspend fun updateFavoriteCatBreed(catBreedId: String) =
         catBreedDao.updateFavoriteCatBreed(catBreedId)
+
+    /**
+     * Returns the an Cat Breed by the specified Id.
+     */
+    override fun getCatBreedById(catBreedId: String): Flow<CatBreed> =
+        catBreedDao.getCatBreedById(catBreedId)
 
     private companion object {
         val TAG: String = CatRepositoryImpl::class.java.simpleName
