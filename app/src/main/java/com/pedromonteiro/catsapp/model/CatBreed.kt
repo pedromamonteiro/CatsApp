@@ -1,6 +1,7 @@
 package com.pedromonteiro.catsapp.model
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
@@ -20,4 +21,14 @@ data class CatBreed(
 
     fun getImageUrl() =
         "https://cdn2.thecatapi.com/images/${referenceImageId}.jpg"
+
+    fun getAverageLifespan() =
+        (minLifeSpan + maxLifespan) / 2
+
+    @Ignore
+    private val minLifeSpan = lifeSpan.split("-").getOrNull(0)?.trim()?.toIntOrNull() ?: 0
+
+    @Ignore
+    private val maxLifespan = lifeSpan.split("-").getOrNull(1)?.trim()?.toIntOrNull() ?: 0
+
 }

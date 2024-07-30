@@ -7,4 +7,8 @@
     <string name="already_at_home_cd">Already at Home Screen</string>
     <string name="already_at_favorites_cd">Already at Favorites Screen</string>
     <string name="search_by_breed_ph">Search by breed</string>
+    <string name="cat_lifespan_description">Lifespan ~%1$s years</string>
+    <string name="popup_title_desc">Do you want to remove this favorite ?</string>
+    <string name="popup_dismiss_bt">Dismiss</string>
+    <string name="popup_confirm_bt">Confirm</string>
 </resources>

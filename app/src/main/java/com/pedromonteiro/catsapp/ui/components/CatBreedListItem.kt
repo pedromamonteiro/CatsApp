@@ -6,12 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +33,7 @@ import com.pedromonteiro.catsapp.model.CatBreed
 @Composable
 fun CatBreedListItem(
     catBreed: CatBreed,
+    showLifespan: Boolean = false,
     onClick: (CatBreed) -> Unit,
     onFavoriteClick: (CatBreed) -> Unit
 ) {
@@ -43,18 +45,15 @@ fun CatBreedListItem(
             CatImage(catBreed = catBreed)
             FavoriteButton(catBreed = catBreed, onClick = onFavoriteClick)
         }
-        Text(
-            text = catBreed.name,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .padding(4.dp)
-                .fillMaxWidth()
-        )
+        CatBreedText(breedName = catBreed.name)
+        if (showLifespan) {
+            CatLifespanText(catBreed = catBreed)
+        }
     }
 }
 
 @Composable
-private fun CatImage(catBreed: CatBreed) {
+private fun BoxScope.CatImage(catBreed: CatBreed) {
     val image = catBreed.referenceImageId?.let {
         rememberAsyncImagePainter(model = catBreed.getImageUrl())
     } ?: painterResource(id = R.drawable.ic_no_image)
@@ -63,8 +62,10 @@ private fun CatImage(catBreed: CatBreed) {
         painter = image,
         contentDescription = catBreed.name,
         modifier = Modifier
-            .size(100.dp),
-        contentScale = ContentScale.FillHeight
+            .height(100.dp)
+            .fillMaxWidth()
+            .align(Alignment.Center),
+        contentScale = ContentScale.Crop
     )
 }
 
@@ -78,17 +79,47 @@ private fun BoxScope.FavoriteButton(catBreed: CatBreed, onClick: (CatBreed) -> U
             .padding(4.dp)
     ) {
         Icon(
-            imageVector = if (catBreed.isFavorite) Icons.Filled.Star else Icons.Outlined.Star,
+            imageVector = if (catBreed.isFavorite)
+                Icons.Filled.Star
+            else
+                Icons.Outlined.StarOutline,
             contentDescription = if (catBreed.isFavorite)
                 stringResource(R.string.remove_favorite_cd)
             else
                 stringResource(R.string.add_favorite_cd),
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.primaryContainer
         )
     }
 }
 
-@Preview
+@Composable
+private fun CatBreedText(breedName: String) {
+    Text(
+        text = breedName,
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier
+            .padding(horizontal = 4.dp, vertical = 2.dp)
+            .fillMaxWidth()
+    )
+}
+
+@Composable
+private fun CatLifespanText(catBreed: CatBreed) {
+    Text(
+        text = stringResource(
+            id = R.string.cat_lifespan_description,
+            catBreed.getAverageLifespan().toString()
+        ),
+        textAlign = TextAlign.Center,
+        style = MaterialTheme.typography.bodySmall,
+        modifier = Modifier
+            .padding(horizontal = 4.dp, vertical = 2.dp)
+            .fillMaxWidth()
+    )
+}
+
+@Preview(showBackground = true)
 @Composable
 private fun PreviewCatBreedListItem() {
     val catBreed = CatBreed(
@@ -101,6 +132,25 @@ private fun PreviewCatBreedListItem() {
         description = "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
         isFavorite = false
     )
-
     CatBreedListItem(catBreed = catBreed, onClick = {}, onFavoriteClick = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewCatBreedListItemWithAverageLifespan() {
+    val catBreed = CatBreed(
+        id = "abys",
+        name = "Abyssiniaan",
+        referenceImageId = "0XYvRd7oD",
+        lifeSpan = "14 - 15",
+        origin = "Egypt",
+        temperament = "Active, Energetic, Independent, Intelligent, Gentle",
+        description = "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
+        isFavorite = true
+    )
+    CatBreedListItem(
+        catBreed = catBreed,
+        showLifespan = true,
+        onClick = {},
+        onFavoriteClick = {})
 }

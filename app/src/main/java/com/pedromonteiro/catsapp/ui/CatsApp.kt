@@ -18,10 +18,10 @@ import com.pedromonteiro.catsapp.ui.theme.CatsAppTheme
 fun CatsApp() {
     // Navigation
     val navController = rememberNavController()
-    var currentScreen by rememberSaveable { mutableStateOf(Routes.Home) }
+    var currentRoute by rememberSaveable { mutableStateOf(Routes.Home) }
 
     navController.addOnDestinationChangedListener { _, destination, _ ->
-        currentScreen = when (destination.route) {
+        currentRoute = when (destination.route) {
             Routes.Home.route -> Routes.Home
             Routes.Favorites.route -> Routes.Favorites
             else -> throw IllegalArgumentException("Unknown destination")
@@ -38,10 +38,15 @@ fun CatsApp() {
                 }
             },
             bottomBar = {
-                BottomNavigation(currentRoute = currentScreen) { route ->
-                    if (route != currentScreen) {
-                        navController.popBackStack()
-                        navController.navigate(route.route)
+                BottomNavigation(currentRoute = currentRoute) { route ->
+                    if (currentRoute.route != route.route) {
+                        navController.navigate(route.route) {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 }
             }

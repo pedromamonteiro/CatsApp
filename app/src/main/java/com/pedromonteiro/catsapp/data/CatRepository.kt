@@ -1,7 +1,10 @@
 package com.pedromonteiro.catsapp.data
 
 import com.pedromonteiro.catsapp.model.CatBreed
+import kotlinx.coroutines.flow.Flow
 
 interface CatRepository {
-    suspend fun getBreeds(): List<CatBreed>
+    suspend fun getBreeds(): Flow<List<CatBreed>>
+    suspend fun getFavoriteBreeds(): Flow<List<CatBreed>>
+    suspend fun updateFavoriteCatBreed(catBreedId: String)
 }

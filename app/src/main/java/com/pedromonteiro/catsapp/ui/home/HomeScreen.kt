@@ -1,4 +1,4 @@
-package com.pedromonteiro.catsapp.ui
+package com.pedromonteiro.catsapp.ui.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,37 +18,33 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pedromonteiro.catsapp.R
 import com.pedromonteiro.catsapp.model.CatBreed
 import com.pedromonteiro.catsapp.ui.components.CatBreedListItem
-import com.pedromonteiro.catsapp.ui.viewmodel.CatViewModel
 
 @Composable
-fun HomeScreen(viewModel: CatViewModel = hiltViewModel(), onCatClick: (CatBreed) -> Unit) {
-    val catBreeds by viewModel.breedsFlow.collectAsState()
-    // TODO When doing the search feature make this a mutable state
-    val search = ""
+fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), onCatClick: (CatBreed) -> Unit) {
+    val homeScreenState by viewModel.homeScreenState.collectAsStateWithLifecycle()
 
     HomeScreen(
-        searchString = "",
-        catBreeds = catBreeds,
+        homeScreenState = homeScreenState,
         onSearchChanged = { TODO("Make viewmodel do the search and update catBreeds") },
         onClick = onCatClick,
-        onFavoriteClick = { TODO("Use viewmodel to mark the cat breed as favorite") }
+        onFavoriteClick = viewModel::onFavoriteClick
     )
 }
 
 @Composable
 private fun HomeScreen(
-    searchString: String = "",
-    catBreeds: List<CatBreed>,
+    homeScreenState: HomeScreenState,
     onSearchChanged: (String) -> Unit,
     onClick: (CatBreed) -> Unit,
     onFavoriteClick: (CatBreed) -> Unit
 ) {
     Column {
         OutlinedTextField(
-            value = searchString,
+            value = homeScreenState.searchString,
             onValueChange = onSearchChanged,
             placeholder = { Text(text = stringResource(id = R.string.search_by_breed_ph)) },
             modifier = Modifier
@@ -60,7 +56,7 @@ private fun HomeScreen(
             contentPadding = PaddingValues(8.dp),
             modifier = Modifier.fillMaxSize()
         ) {
-            items(catBreeds) { catBreed ->
+            items(homeScreenState.catBreeds) { catBreed ->
                 CatBreedListItem(
                     catBreed = catBreed,
                     onClick = onClick,
@@ -86,5 +82,5 @@ private fun PreviewHomeScreen() {
     )
     val catBreeds = listOf(breed, breed, breed, breed, breed, breed, breed)
 
-    HomeScreen("", catBreeds, {}, {}, {})
+    HomeScreen(HomeScreenState(catBreeds), {}, {}, {})
 }

@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import com.pedromonteiro.catsapp.R
 
@@ -13,7 +14,7 @@ enum class Routes(val route: String) {
 
     fun getBottomNavigationIcon(selected: Routes) = when (this) {
         Home -> if (this == selected) Icons.Filled.Home else Icons.Outlined.Home
-        Favorites -> if (this == selected) Icons.Filled.Favorite else Icons.Outlined.Favorite
+        Favorites -> if (this == selected) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder
         else -> throw IllegalArgumentException("Route is not a part of bottom navigation!")
     }
 
