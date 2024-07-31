@@ -1,4 +1,4 @@
-package com.pedromonteiro.catsapp.model
+package com.pedromonteiro.catsapp.domain.model
 
 enum class Routes(val route: String) {
     Home("home"),

@@ -9,9 +9,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pedromonteiro.catsapp.R
-import com.pedromonteiro.catsapp.model.Routes
-import com.pedromonteiro.catsapp.model.Routes.Favorites
-import com.pedromonteiro.catsapp.model.Routes.Home
+import com.pedromonteiro.catsapp.domain.model.Routes
+import com.pedromonteiro.catsapp.domain.model.Routes.Favorites
+import com.pedromonteiro.catsapp.domain.model.Routes.Home
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

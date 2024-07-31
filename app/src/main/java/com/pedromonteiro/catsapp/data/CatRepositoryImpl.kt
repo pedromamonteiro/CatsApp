@@ -3,7 +3,7 @@ package com.pedromonteiro.catsapp.data
 import android.util.Log
 import com.pedromonteiro.catsapp.data.database.CatBreedDao
 import com.pedromonteiro.catsapp.data.remote.CatApi
-import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.firstOrNull

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pedromonteiro.catsapp.domain.usecase.GetBreedById
 import com.pedromonteiro.catsapp.domain.usecase.UpdateFavoriteBreed
-import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 import com.pedromonteiro.catsapp.ui.details.DetailsViewModel.DetailsViewModelFactory
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

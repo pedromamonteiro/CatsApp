@@ -1,6 +1,6 @@
 package com.pedromonteiro.catsapp.data
 
-import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 import kotlinx.coroutines.flow.Flow
 
 interface CatRepository {

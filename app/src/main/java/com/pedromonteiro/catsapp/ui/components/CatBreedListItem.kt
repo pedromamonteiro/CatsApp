@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.pedromonteiro.catsapp.R
-import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 
 @Composable
 fun CatBreedListItem(

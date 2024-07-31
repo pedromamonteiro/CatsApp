@@ -1,6 +1,6 @@
 package com.pedromonteiro.catsapp.data.remote
 
-import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 import retrofit2.http.GET
 
 interface CatApi {

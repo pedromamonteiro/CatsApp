@@ -1,6 +1,6 @@
 package com.pedromonteiro.catsapp.ui.favorites
 
-import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 
 data class FavoriteScreenState(
     val favoriteCatBreeds: List<CatBreed> = emptyList(),

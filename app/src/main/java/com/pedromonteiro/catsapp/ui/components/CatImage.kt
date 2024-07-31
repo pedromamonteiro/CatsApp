@@ -7,7 +7,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import coil.compose.rememberAsyncImagePainter
 import com.pedromonteiro.catsapp.R
-import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 
 @Composable
 fun CatImage(catBreed: CatBreed, modifier: Modifier = Modifier) {

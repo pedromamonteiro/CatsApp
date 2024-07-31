@@ -6,9 +6,9 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import com.pedromonteiro.catsapp.R
-import com.pedromonteiro.catsapp.model.Routes
-import com.pedromonteiro.catsapp.model.Routes.Favorites
-import com.pedromonteiro.catsapp.model.Routes.Home
+import com.pedromonteiro.catsapp.domain.model.Routes
+import com.pedromonteiro.catsapp.domain.model.Routes.Favorites
+import com.pedromonteiro.catsapp.domain.model.Routes.Home
 
 fun Routes.getBottomNavigationIcon(selected: Routes) = when (this) {
     Home -> if (this == selected) Icons.Filled.Home else Icons.Outlined.Home

@@ -6,7 +6,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.pedromonteiro.catsapp.model.Routes
+import com.pedromonteiro.catsapp.domain.model.Routes
 import com.pedromonteiro.catsapp.ui.utils.getBottomNavigationContentDescription
 import com.pedromonteiro.catsapp.ui.utils.getBottomNavigationIcon
 

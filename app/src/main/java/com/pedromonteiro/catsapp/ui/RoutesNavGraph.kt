@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.pedromonteiro.catsapp.model.Routes
+import com.pedromonteiro.catsapp.domain.model.Routes
 import com.pedromonteiro.catsapp.ui.details.DetailsScreen
 import com.pedromonteiro.catsapp.ui.favorites.FavoritesScreen
 import com.pedromonteiro.catsapp.ui.home.HomeScreen

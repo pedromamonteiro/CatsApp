@@ -1,4 +1,4 @@
-package com.pedromonteiro.catsapp.model
+package com.pedromonteiro.catsapp.domain.model
 
 import androidx.room.Entity
 import androidx.room.Ignore

@@ -12,7 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.pedromonteiro.catsapp.model.Routes
+import com.pedromonteiro.catsapp.domain.model.Routes
 import com.pedromonteiro.catsapp.ui.components.BottomNavigation
 import com.pedromonteiro.catsapp.ui.components.TopCatBar
 import com.pedromonteiro.catsapp.ui.theme.CatsAppTheme
