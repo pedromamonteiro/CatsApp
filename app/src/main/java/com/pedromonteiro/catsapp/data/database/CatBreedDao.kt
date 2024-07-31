@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CatBreedDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrUpdate(vararg catBreed: CatBreed)
+    suspend fun insertOrUpdate(catBreeds: List<CatBreed>)
 
     @Query("SELECT * FROM catBreed ORDER BY name ASC")
     fun getAllCatBreeds(): Flow<List<CatBreed>>

@@ -34,10 +34,10 @@ class CatRepositoryImpl @Inject constructor(
                 catBreed.copy(isFavorite = favoriteBreedsIds.contains(catBreed.id))
             }
 
-            catBreedDao.insertOrUpdate(*favoriteUpdatedBreeds.toTypedArray())
+            catBreedDao.insertOrUpdate(favoriteUpdatedBreeds)
 
             return@let catBreedDao.getAllCatBreeds()
-        } ?: emptyFlow()
+        } ?: catBreedDao.getAllCatBreeds()
     } catch (e: Exception) {
         Log.e(TAG, "Unexpected error has occurred, fallback to local cat breeds", e)
         catBreedDao.getAllCatBreeds()
