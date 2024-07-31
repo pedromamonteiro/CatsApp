@@ -1,5 +1,6 @@
 package com.pedromonteiro.catsapp.ui
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -9,10 +10,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.pedromonteiro.catsapp.model.Routes
 import com.pedromonteiro.catsapp.ui.components.BottomNavigation
-import com.pedromonteiro.catsapp.ui.components.TopBar
+import com.pedromonteiro.catsapp.ui.components.TopCatBar
 import com.pedromonteiro.catsapp.ui.theme.CatsAppTheme
 
 @Composable
@@ -32,15 +34,12 @@ fun CatsApp() {
     CatsAppTheme {
         Scaffold(
             topBar = {
-                val catBreedId =
-                    navController.currentBackStackEntry?.arguments?.getString("catBreedId")
-                TopBar(
-                    currentRoute = currentRoute,
-                    onBackClick = { navController.navigateUp() },
-                    catBreedId = catBreedId
-                )
+                if (Routes.TOP_CAT_BAR_ROUTES.contains(currentRoute)) {
+                    TopCatBar(currentRoute = currentRoute)
+                }
             },
-            content = { contentPadding ->
+            content = {
+                val contentPadding = if (currentRoute == Routes.Details) PaddingValues(0.dp) else it
                 Surface(modifier = Modifier.padding(contentPadding)) {
                     RoutesNavGraph(navController = navController)
                 }

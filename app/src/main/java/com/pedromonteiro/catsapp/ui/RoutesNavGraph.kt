@@ -26,9 +26,11 @@ fun RoutesNavGraph(navController: NavHostController) {
         }
         composable(Routes.Favorites.route) { FavoritesScreen() }
         composable(Routes.Details.route) { navBackStackEntry ->
-            val catBreedId = navBackStackEntry.arguments?.getString("catBreedId")
-            catBreedId?.let {
-                DetailsScreen()
+            navBackStackEntry.arguments?.getString("catBreedId")?.let { catBreedId ->
+                DetailsScreen(
+                    catBreedId = catBreedId,
+                    onBackClick = { navController.navigateUp() }
+                )
             }
         }
     }

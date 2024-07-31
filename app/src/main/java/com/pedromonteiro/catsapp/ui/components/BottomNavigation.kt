@@ -7,12 +7,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.pedromonteiro.catsapp.model.Routes
+import com.pedromonteiro.catsapp.ui.utils.getBottomNavigationContentDescription
+import com.pedromonteiro.catsapp.ui.utils.getBottomNavigationIcon
 
 @Composable
 fun BottomNavigation(
     currentRoute: Routes,
     onClick: (Routes) -> Unit
 ) {
+    if (!Routes.BOTTOM_NAVIGATION_ROUTES.contains(currentRoute)) {
+        return
+    }
+
     BottomAppBar {
         Routes.BOTTOM_NAVIGATION_ROUTES.forEach { route ->
             NavigationBarItem(

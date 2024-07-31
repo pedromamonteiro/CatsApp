@@ -1,22 +1,44 @@
 package com.pedromonteiro.catsapp.ui.details
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.pedromonteiro.catsapp.domain.usecase.GetBreedById
+import com.pedromonteiro.catsapp.domain.usecase.UpdateFavoriteBreed
 import com.pedromonteiro.catsapp.model.CatBreed
+import com.pedromonteiro.catsapp.ui.details.DetailsViewModel.DetailsViewModelFactory
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-@HiltViewModel
-class DetailsViewModel @Inject constructor(
-    private val getBreedById: GetBreedById
+@HiltViewModel(assistedFactory = DetailsViewModelFactory::class)
+class DetailsViewModel @AssistedInject constructor(
+    @Assisted private val catBreedId: String,
+    private val getBreedById: GetBreedById,
+    private val updateFavoriteBreed: UpdateFavoriteBreed
 ) : ViewModel() {
+    @AssistedFactory
+    interface DetailsViewModelFactory {
+        fun create(catBreedId: String): DetailsViewModel
+    }
 
-    fun getCatBreed(catBreedId: String): CatBreed? {
-        return runBlocking(context = Dispatchers.IO) {
-            return@runBlocking getBreedById(catBreedId).firstOrNull()
+    private val _detailsScreenState = MutableStateFlow<CatBreed?>(null)
+    val detailsScreenState = _detailsScreenState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            getBreedById(catBreedId).collect { catBreed ->
+                _detailsScreenState.value = catBreed
+            }
+        }
+    }
+
+    fun onFavoriteClick(catBreed: CatBreed) {
+        viewModelScope.launch {
+            updateFavoriteBreed(catBreedId = catBreed.id)
         }
     }
 }
