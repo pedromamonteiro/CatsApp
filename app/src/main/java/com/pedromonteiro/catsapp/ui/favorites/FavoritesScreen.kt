@@ -61,7 +61,7 @@ private fun FavoriteBreedsListGrid(favoriteCatBreeds: List<CatBreed>, onClick: (
                 catBreed = favoriteBreed,
                 showLifespan = true,
                 onClick = onClick,
-                onFavoriteClick = {}
+                onFavoriteClick = onClick
             )
         }
     }
