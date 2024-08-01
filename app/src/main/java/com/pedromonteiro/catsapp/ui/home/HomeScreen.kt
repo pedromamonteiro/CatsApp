@@ -1,13 +1,9 @@
 package com.pedromonteiro.catsapp.ui.home
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +16,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pedromonteiro.catsapp.R
 import com.pedromonteiro.catsapp.domain.model.CatBreed
-import com.pedromonteiro.catsapp.ui.components.CatBreedListItem
+import com.pedromonteiro.catsapp.ui.components.InfoMessage
+import com.pedromonteiro.catsapp.ui.components.VerticalCatBreedGrid
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), onCatClick: (CatBreed) -> Unit) {
@@ -42,33 +39,41 @@ private fun HomeScreen(
     onFavoriteClick: (CatBreed) -> Unit
 ) {
     Column {
-        // TODO first initialization without internet does not have any cat breed data,
-        //  present information message to user
-        OutlinedTextField(
-            value = homeScreenState.searchString,
-            onValueChange = onSearchChanged,
-            placeholder = { Text(text = stringResource(id = R.string.search_by_breed_ph)) },
-            modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .fillMaxWidth()
-        )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            contentPadding = PaddingValues(8.dp),
-            modifier = Modifier.fillMaxSize()
-        ) {
-            items(homeScreenState.catBreeds) { catBreed ->
-                CatBreedListItem(
-                    catBreed = catBreed,
-                    onClick = onClick,
-                    onFavoriteClick = onFavoriteClick
-                )
-            }
+        if (homeScreenState.localDataEmpty) {
+            InfoMessage(text = stringResource(id = R.string.no_data_desc))
+        } else {
+            CatBreedSearchBar(
+                value = homeScreenState.searchString,
+                onValueChange = onSearchChanged,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .fillMaxWidth()
+            )
+            VerticalCatBreedGrid(
+                catBreeds = homeScreenState.catBreeds,
+                onClick = onClick,
+                onFavoriteClick = onFavoriteClick,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }
 
-@Preview
+@Composable
+private fun CatBreedSearchBar(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        placeholder = { Text(text = stringResource(id = R.string.search_by_breed_ph)) },
+        modifier = modifier
+    )
+}
+
+@Preview(showBackground = true)
 @Composable
 private fun PreviewHomeScreen() {
     val catBreed = CatBreed(

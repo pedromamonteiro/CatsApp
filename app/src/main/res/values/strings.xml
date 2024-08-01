@@ -6,6 +6,7 @@
     <string name="navigate_to_favorites_cd">Go to Favorites Screen</string>
     <string name="already_at_home_cd">Already at Home Screen</string>
     <string name="already_at_favorites_cd">Already at Favorites Screen</string>
+    <string name="no_data_desc">No Cats data for offline usage, please turn on wifi / mobile data, and try again.</string>
     <string name="search_by_breed_ph">Search by breed</string>
     <string name="cat_lifespan_desc">Lifespan ~%1$s years</string>
     <string name="no_favorites_desc">You do not have any favorites</string>

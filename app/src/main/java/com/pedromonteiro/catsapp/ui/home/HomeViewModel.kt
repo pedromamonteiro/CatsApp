@@ -41,13 +41,19 @@ class HomeViewModel @Inject constructor(
     private fun subscribeToBreeds() {
         viewModelScope.launch(ioDispatcher) {
             getBreeds().collect { catBreeds ->
-                allBreeds = catBreeds
-                performFilter()
+                if (catBreeds.isEmpty()) {
+                    allBreeds = emptyList()
+                    _homeScreenState.value = _homeScreenState.value.copy(localDataEmpty = true)
+                } else {
+                    allBreeds = catBreeds
+                    performFilter()
+                }
             }
         }
     }
 
     private fun performFilter() {
+        val localDataEmpty = allBreeds.isEmpty()
         val searchString = _homeScreenState.value.searchString
         val filteredBreeds = if (searchString.isEmpty()) {
             allBreeds
@@ -56,6 +62,6 @@ class HomeViewModel @Inject constructor(
         }
 
         _homeScreenState.value =
-            _homeScreenState.value.copy(searchString = searchString, catBreeds = filteredBreeds)
+            _homeScreenState.value.copy(catBreeds = filteredBreeds, localDataEmpty = localDataEmpty)
     }
 }
