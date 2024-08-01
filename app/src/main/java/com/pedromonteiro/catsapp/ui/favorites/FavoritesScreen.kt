@@ -2,16 +2,20 @@ package com.pedromonteiro.catsapp.ui.favorites
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,15 +46,32 @@ private fun FavoritesScreen(
     if (favoriteScreenState.showRemoveFavoritePopup) {
         RemoveFavoriteDialog(onCancel = onPopupCancel, onConfirm = onPopupConfirm)
     }
-    FavoriteBreedsListGrid(
-        favoriteCatBreeds = favoriteScreenState.favoriteCatBreeds,
-        onClick = onFavoriteClick
+
+    val favoriteCatBreeds = favoriteScreenState.favoriteCatBreeds
+    if (favoriteCatBreeds.isEmpty()) {
+        NoFavoritesMessage()
+    } else {
+        FavoriteBreedsListGrid(
+            favoriteCatBreeds = favoriteCatBreeds,
+            onClick = onFavoriteClick
+        )
+    }
+}
+
+@Composable
+private fun NoFavoritesMessage() {
+    Text(
+        text = stringResource(id = R.string.no_favorites_desc),
+        style = MaterialTheme.typography.bodyLarge,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
     )
 }
 
 @Composable
 private fun FavoriteBreedsListGrid(favoriteCatBreeds: List<CatBreed>, onClick: (CatBreed) -> Unit) {
-    // TODO Add an "You don't have any favorites" message
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(8.dp),
@@ -87,7 +108,7 @@ private fun RemoveFavoriteDialog(onCancel: () -> Unit, onConfirm: () -> Unit) {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun PreviewFavoritesScreen() {
     val catBreed = CatBreed(
@@ -105,6 +126,17 @@ private fun PreviewFavoritesScreen() {
 
     FavoritesScreen(
         favoriteScreenState = FavoriteScreenState(catBreeds),
+        onFavoriteClick = {},
+        onPopupCancel = {},
+        onPopupConfirm = {}
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewNoFavoritesScreen() {
+    FavoritesScreen(
+        favoriteScreenState = FavoriteScreenState(),
         onFavoriteClick = {},
         onPopupCancel = {},
         onPopupConfirm = {}

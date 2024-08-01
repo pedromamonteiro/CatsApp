@@ -10,3 +10,5 @@ A simple app to show cute cats.
 - Room to persist offline data.
 - Coil to load remote images as well as caching them for offline usage.
 - Unit tests structured AAA(Arrange, Act, Assert) pattern with JUnit5 and MockK.
+- Added code coverage control using Jacoco.
+  - To run Jacoco and view the generated report [use the Makefile](Makefile)
