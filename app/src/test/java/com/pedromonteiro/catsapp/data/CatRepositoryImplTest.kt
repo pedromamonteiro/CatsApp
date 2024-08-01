@@ -37,8 +37,8 @@ class CatRepositoryImplTest {
     @Test
     fun getBreedsRequest_Succeeds_ShouldCache_ValidateFavoritesData_StoreDatabase_ReturnBreeds() =
         runBlocking {
-            val expected = TestHelper.generateCatBreeds(10)
-            val expectedFavorites = TestHelper.generateCatBreeds(10, true)
+            val expected = TestHelper.generateCatBreedDTOS(10)
+            val expectedFavorites = TestHelper.generateCatBreedDTOS(10, true)
             coEvery { mockCatApi.getBreeds() } returns expected
             every { mockCatBreedDao.getAllFavoriteCatBreeds() } returns flowOf(expectedFavorites)
             coEvery { mockCatBreedDao.insertOrUpdate(any()) } just Runs
@@ -51,7 +51,7 @@ class CatRepositoryImplTest {
 
     @Test
     fun getBreedsRequest_Fails_FallbackDatabase_ReturnBreeds() = runBlocking {
-        val expected = TestHelper.generateCatBreeds(10)
+        val expected = TestHelper.generateCatBreedDTOS(10)
         coEvery { mockCatApi.getBreeds() } returns null
         every { mockCatBreedDao.getAllCatBreeds() } returns flowOf(expected)
 
@@ -62,7 +62,7 @@ class CatRepositoryImplTest {
 
     @Test
     fun getBreedsRequest_Throws_FallbackDatabase_ReturnBreeds() = runBlocking {
-        val expected = TestHelper.generateCatBreeds(10)
+        val expected = TestHelper.generateCatBreedDTOS(10)
         coEvery { mockCatApi.getBreeds() } throws Exception("test")
         every { mockCatBreedDao.getAllCatBreeds() } returns flowOf(expected)
         TestHelper.mockLog()
@@ -74,7 +74,7 @@ class CatRepositoryImplTest {
 
     @Test
     fun getFavoriteBreeds_ReturnFavoriteBreeds() = runBlocking {
-        val expected = TestHelper.generateCatBreeds(10, true)
+        val expected = TestHelper.generateCatBreedDTOS(10, true)
         every { mockCatBreedDao.getAllFavoriteCatBreeds() } returns flowOf(expected)
 
         val result = catRepository.getFavoriteBreeds()
@@ -94,7 +94,7 @@ class CatRepositoryImplTest {
 
     @Test
     fun getCatBreedById_ReturnCatBreed() = runBlocking {
-        val expected = TestHelper.generateCatBreed()
+        val expected = TestHelper.generateCatBreedDTO()
         val fakeId = expected.id
         every { mockCatBreedDao.getCatBreedById(any()) } returns flowOf(expected)
 

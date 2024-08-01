@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pedromonteiro.catsapp.R
+import com.pedromonteiro.catsapp.data.entity.CatBreedDTO
 import com.pedromonteiro.catsapp.domain.model.CatBreed
 import com.pedromonteiro.catsapp.ui.components.CatImage
 import com.pedromonteiro.catsapp.ui.components.FavoriteCatBreedButton
@@ -133,7 +134,9 @@ private fun PreviewDetailsScreen() {
         id = "abys",
         name = "Abyssiniaan",
         referenceImageId = "0XYvRd7oD",
+        referenceImageUrl = "",
         lifeSpan = "14 - 15",
+        averageLifeSpan = 14,
         origin = "Egypt",
         temperament = "Active, Energetic, Independent, Intelligent, Gentle",
         description = "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",

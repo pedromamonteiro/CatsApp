@@ -1,20 +1,22 @@
 package com.pedromonteiro.catsapp
 
 import android.util.Log
+import com.pedromonteiro.catsapp.data.entity.CatBreedDTO
 import com.pedromonteiro.catsapp.domain.model.CatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed.Companion.toCatBreed
+import com.pedromonteiro.catsapp.domain.model.CatBreed.Companion.toCatBreeds
 import io.mockk.every
 import io.mockk.mockkStatic
 
 object TestHelper {
     const val ONCE = 1
-    const val TWICE = 2
 
-    fun generateCatBreed(isFavorite: Boolean = false): CatBreed =
-        generateCatBreeds(1, isFavorite)[0]
+    fun generateCatBreedDTO(isFavorite: Boolean = false): CatBreedDTO =
+        generateCatBreedDTOS(1, isFavorite)[0]
 
-    fun generateCatBreeds(amount: Int = 1, isFavorite: Boolean = false): List<CatBreed> {
+    fun generateCatBreedDTOS(amount: Int = 1, isFavorite: Boolean = false): List<CatBreedDTO> {
         return List(amount) { index ->
-            CatBreed(
+            CatBreedDTO(
                 id = "$index",
                 name = "Abyssiniaan-$index",
                 referenceImageId = "0XYvRd7oD",
@@ -26,6 +28,12 @@ object TestHelper {
             )
         }
     }
+
+    fun generateCatBreed(isFavorite: Boolean = false): CatBreed =
+        generateCatBreedDTO(isFavorite).toCatBreed()
+
+    fun generateCatBreeds(amount: Int = 1, isFavorite: Boolean = false): List<CatBreed> =
+        generateCatBreedDTOS(amount, isFavorite).toCatBreeds()
 
     fun mockLog() {
         mockkStatic(Log::class)

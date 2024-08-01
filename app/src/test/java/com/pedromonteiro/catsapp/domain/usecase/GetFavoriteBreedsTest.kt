@@ -2,6 +2,7 @@ package com.pedromonteiro.catsapp.domain.usecase
 
 import com.pedromonteiro.catsapp.TestHelper
 import com.pedromonteiro.catsapp.data.CatRepository
+import com.pedromonteiro.catsapp.domain.model.CatBreed.Companion.toCatBreeds
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first
@@ -22,8 +23,9 @@ class GetFavoriteBreedsTest {
 
     @Test
     fun getFavoriteBreedsReturnsFavoriteBreeds() = runBlocking {
-        val expected = TestHelper.generateCatBreeds(amount = 10, isFavorite = true)
-        coEvery { mockCatRepository.getFavoriteBreeds() } returns flowOf(expected)
+        val catBreedDTOS = TestHelper.generateCatBreedDTOS(amount = 10, isFavorite = true)
+        val expected = catBreedDTOS.toCatBreeds()
+        coEvery { mockCatRepository.getFavoriteBreeds() } returns flowOf(catBreedDTOS)
 
         val result = getFavoriteBreeds()
 

@@ -13,7 +13,7 @@ import com.pedromonteiro.catsapp.domain.model.CatBreed
 fun CatImage(catBreed: CatBreed, modifier: Modifier = Modifier) {
     Image(
         painter = rememberAsyncImagePainter(
-            model = catBreed.getImageUrl(),
+            model = catBreed.referenceImageUrl,
             error = painterResource(id = R.drawable.ic_no_image)
         ),
         contentDescription = catBreed.name,

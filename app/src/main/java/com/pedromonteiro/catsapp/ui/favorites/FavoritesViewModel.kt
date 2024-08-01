@@ -3,9 +3,9 @@ package com.pedromonteiro.catsapp.ui.favorites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pedromonteiro.catsapp.di.IoDispatcher
+import com.pedromonteiro.catsapp.domain.model.CatBreed
 import com.pedromonteiro.catsapp.domain.usecase.GetFavoriteBreeds
 import com.pedromonteiro.catsapp.domain.usecase.UpdateFavoriteBreed
-import com.pedromonteiro.catsapp.domain.model.CatBreed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,34 +1,43 @@
 package com.pedromonteiro.catsapp.domain.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import com.pedromonteiro.catsapp.data.entity.CatBreedDTO
 
-// TODO If I have time, leave this class as an entity in data package, and create model classes
-//  for each kind of screen that they are needed
-@Entity(tableName = "catBreed")
 data class CatBreed(
-    @SerializedName("id") @PrimaryKey val id: String,
-    @SerializedName("name") val name: String,
-    @SerializedName("reference_image_id") val referenceImageId: String?,
-    @SerializedName("life_span") val lifeSpan: String,
-    @SerializedName("origin") val origin: String,
-    @SerializedName("temperament") val temperament: String,
-    @SerializedName("description") val description: String,
-    val isFavorite: Boolean = false
+    val id: String,
+    val name: String,
+    val referenceImageId: String?,
+    val referenceImageUrl: String?,
+    val lifeSpan: String,
+    val averageLifeSpan: Int,
+    val origin: String,
+    val temperament: String,
+    val description: String,
+    val isFavorite: Boolean
 ) {
+    companion object {
+        fun CatBreedDTO.toCatBreed(): CatBreed {
+            val referenceImageUrl = "https://cdn2.thecatapi.com/images/${referenceImageId}.jpg"
+            val minLifeSpan = lifeSpan.split("-").getOrNull(0)?.trim()?.toIntOrNull() ?: 0
+            val maxLifespan = lifeSpan.split("-").getOrNull(1)?.trim()?.toIntOrNull() ?: 0
+            val averageLifeSpan = (minLifeSpan + maxLifespan) / 2
 
-    fun getImageUrl() =
-        "https://cdn2.thecatapi.com/images/${referenceImageId}.jpg"
+            return CatBreed(
+                id = id,
+                name = name,
+                referenceImageId = referenceImageId,
+                referenceImageUrl = referenceImageUrl,
+                lifeSpan = lifeSpan,
+                averageLifeSpan = averageLifeSpan,
+                origin = origin,
+                temperament = temperament,
+                description = description,
+                isFavorite = isFavorite
+            )
+        }
 
-    fun getAverageLifespan() =
-        (minLifeSpan + maxLifespan) / 2
-
-    @Ignore
-    private val minLifeSpan = lifeSpan.split("-").getOrNull(0)?.trim()?.toIntOrNull() ?: 0
-
-    @Ignore
-    private val maxLifespan = lifeSpan.split("-").getOrNull(1)?.trim()?.toIntOrNull() ?: 0
-
+        fun List<CatBreedDTO>.toCatBreeds(): List<CatBreed> =
+            this.map { catBreedDTO ->
+                catBreedDTO.toCatBreed()
+            }
+    }
 }

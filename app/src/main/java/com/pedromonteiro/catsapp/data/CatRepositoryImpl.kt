@@ -3,9 +3,8 @@ package com.pedromonteiro.catsapp.data
 import android.util.Log
 import com.pedromonteiro.catsapp.data.database.CatBreedDao
 import com.pedromonteiro.catsapp.data.remote.CatApi
-import com.pedromonteiro.catsapp.domain.model.CatBreed
+import com.pedromonteiro.catsapp.data.entity.CatBreedDTO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -24,7 +23,7 @@ class CatRepositoryImpl @Inject constructor(
      * Saves to internal database whenever a successful internet connection occurs, and returns those values.
      * If there's an error while making the network request fallbacks to use internal database.
      */
-    override suspend fun getBreeds(): Flow<List<CatBreed>> = try {
+    override suspend fun getBreeds(): Flow<List<CatBreedDTO>> = try {
         catApi.getBreeds()?.let { catBreeds ->
             // Since there's no mechanism of checking if what we have on database is the same as in the server
             // check if the user previously added the breed as favorite and update favorite state
@@ -46,7 +45,7 @@ class CatRepositoryImpl @Inject constructor(
     /**
      * Provides an list of favorite Cat Breeds, obtained from the Database, that the user marked as favorite.
      */
-    override suspend fun getFavoriteBreeds(): Flow<List<CatBreed>> =
+    override suspend fun getFavoriteBreeds(): Flow<List<CatBreedDTO>> =
         catBreedDao.getAllFavoriteCatBreeds()
 
     /**
@@ -58,7 +57,7 @@ class CatRepositoryImpl @Inject constructor(
     /**
      * Returns the an Cat Breed by the specified Id.
      */
-    override fun getCatBreedById(catBreedId: String): Flow<CatBreed> =
+    override fun getCatBreedById(catBreedId: String): Flow<CatBreedDTO> =
         catBreedDao.getCatBreedById(catBreedId)
 
     private companion object {

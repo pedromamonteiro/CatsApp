@@ -68,7 +68,7 @@ private fun CatLifespanText(catBreed: CatBreed) {
     Text(
         text = stringResource(
             id = R.string.cat_lifespan_desc,
-            catBreed.getAverageLifespan().toString()
+            catBreed.averageLifeSpan.toString()
         ),
         textAlign = TextAlign.Center,
         style = MaterialTheme.typography.bodySmall,
@@ -85,7 +85,9 @@ private fun PreviewCatBreedListItem() {
         id = "abys",
         name = "Abyssiniaan",
         referenceImageId = "0XYvRd7oD",
+        referenceImageUrl = "",
         lifeSpan = "14 - 15",
+        averageLifeSpan = 14,
         origin = "Egypt",
         temperament = "Active, Energetic, Independent, Intelligent, Gentle",
         description = "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
@@ -101,7 +103,9 @@ private fun PreviewCatBreedListItemWithAverageLifespan() {
         id = "abys",
         name = "Abyssiniaan",
         referenceImageId = "0XYvRd7oD",
+        referenceImageUrl = "",
         lifeSpan = "14 - 15",
+        averageLifeSpan = 14,
         origin = "Egypt",
         temperament = "Active, Energetic, Independent, Intelligent, Gentle",
         description = "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",

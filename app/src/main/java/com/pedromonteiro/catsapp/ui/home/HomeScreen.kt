@@ -42,6 +42,8 @@ private fun HomeScreen(
     onFavoriteClick: (CatBreed) -> Unit
 ) {
     Column {
+        // TODO first initialization without internet does not have any cat breed data,
+        //  present information message to user
         OutlinedTextField(
             value = homeScreenState.searchString,
             onValueChange = onSearchChanged,
@@ -69,17 +71,19 @@ private fun HomeScreen(
 @Preview
 @Composable
 private fun PreviewHomeScreen() {
-    val breed = CatBreed(
+    val catBreed = CatBreed(
         id = "abys",
         name = "Abyssiniaan",
         referenceImageId = "0XYvRd7oD",
+        referenceImageUrl = "",
         lifeSpan = "14 - 15",
+        averageLifeSpan = 14,
         origin = "Egypt",
         temperament = "Active, Energetic, Independent, Intelligent, Gentle",
         description = "The Abyssinian is easy to care for, and a joy to have in your home. They’re affectionate cats and love both people and other animals.",
         isFavorite = false
     )
-    val catBreeds = listOf(breed, breed, breed, breed, breed, breed, breed)
+    val catBreeds = listOf(catBreed, catBreed, catBreed, catBreed, catBreed, catBreed, catBreed)
 
     HomeScreen(HomeScreenState(catBreeds), {}, {}, {})
 }
